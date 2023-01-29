@@ -2,16 +2,18 @@ import styles from "@/styles/Home.module.css";
 
 import PokemonItem from "./PokemonItem";
 import { PokemonsType } from "@/models/types";
+import Link from "next/link";
 
 const PokemonsList: React.FC<PokemonsType> = ({ pokemons }) => {
   return (
     <div className={styles.grid}>
       {pokemons.map((pokemon) => (
-        <PokemonItem
-          key={pokemon.id}
-          name={pokemon.name}
-          image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
-        />
+        <Link key={pokemon.id} href={"/" + pokemon.id}>
+          <PokemonItem
+            name={pokemon.name}
+            image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
+          />
+        </Link>
       ))}
     </div>
   );
