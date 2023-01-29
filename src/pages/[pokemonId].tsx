@@ -1,32 +1,22 @@
 import Head from "next/head";
-import { Inter } from "@next/font/google";
 
-import styles from "@/styles/Home.module.css";
 import {
   getPokemonsDetails,
   getPokemonsGeneration1,
 } from "@/graphql/get-pokemons";
-import { useRouter } from "next/router";
 import { GetStaticProps } from "next";
 import { PokemonDetailType } from "@/models/types";
-
-const inter = Inter({ subsets: ["latin"] });
+import PokemonDetails from "@/components/PokemonDetails";
 
 const Details: React.FC<PokemonDetailType> = ({ details }) => {
-  const router = useRouter();
-
   return (
     <>
       <Head>
-        <title>Pokemon Detail</title>
-        <meta name="description" content="Playing with pokemons" />
+        <title>Pokémon Detail</title>
+        <meta name="description" content={`Playing with ${details[0]?.name}`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <div className={styles.center}>
-        <h1 className={inter.className}>
-          Details of pokemon {details[0]?.name}
-        </h1>
-      </div>
+      <PokemonDetails details={details} />
     </>
   );
 };
@@ -46,14 +36,28 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const data = getPokemonsDetails({ id: 1 });
-  const details = (await data).details.nodes;
+  const pokemonId = context.params!.pokemonId;
 
-  console.log(details);
+  let id: number;
+  if (pokemonId) {
+    if (pokemonId instanceof Array<string>) id = +pokemonId[0];
+    else id = +pokemonId;
+
+    const data = getPokemonsDetails({ id: id });
+    const details = (await data).details.nodes;
+
+    console.log(data);
+
+    return {
+      props: {
+        details: details,
+      },
+    };
+  }
 
   return {
     props: {
-      details: details,
+      details: [],
     },
   };
 };

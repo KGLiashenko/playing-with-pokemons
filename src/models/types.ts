@@ -17,15 +17,17 @@ export type StatType = {
 };
 
 export type StatsType = {
-  stat: StatType[];
+  id: number;
+  base_stat: number;
+  stat: StatType;
 };
 
 export type AgregateStatsType = {
   nodes: StatsType[];
-  base_stat: number;
 };
 
 export type CombatType = {
+  id: number;
   type: NameType;
 };
 
@@ -34,14 +36,12 @@ export type AggregateCombatsType = {
 };
 
 export type DetailsType = {
+  id: number;
   name: string;
-  types: AggregateCombatsType[];
-  stats: AgregateStatsType[];
+  types: AggregateCombatsType;
+  stats: AgregateStatsType;
 };
 
 export type PokemonDetailType = {
   details: DetailsType[];
 };
-
-
-

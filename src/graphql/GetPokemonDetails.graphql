@@ -1,11 +1,13 @@
 query GetPokemonDetails($id: Int!) {
   details: pokemon_v2_pokemon_aggregate(where: { id: { _eq: $id } }) {
     nodes {
+      id
       name
       types: pokemon_v2_pokemontypes_aggregate(
         where: { pokemon_id: { _eq: $id } }
       ) {
         nodes {
+          id
           type: pokemon_v2_type {
             name
           }
@@ -16,6 +18,7 @@ query GetPokemonDetails($id: Int!) {
         distinct_on: base_stat
       ) {
         nodes {
+          id
           stat: pokemon_v2_stat {
             name
             damageclass: pokemon_v2_movedamageclass {

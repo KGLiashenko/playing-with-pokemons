@@ -8,8 +8,8 @@ export default function Home(props: PokemonsType) {
   return (
     <>
       <Head>
-        <title>Pokemon App</title>
-        <meta name="description" content="Playing with pokemons" />
+        <title>Pokémon App</title>
+        <meta name="description" content="Playing with pokémons" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Pokemons pokemons={props.pokemons} />;
