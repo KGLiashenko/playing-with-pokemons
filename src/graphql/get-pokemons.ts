@@ -5,6 +5,9 @@ import {
   GetPokemonsDocument,
   GetPokemonsGeneration1Query,
   GetPokemonsGeneration1Document,
+  GetPokemonDetailsQueryVariables,
+  GetPokemonDetailsDocument,
+  GetPokemonDetailsQuery,
 } from "./graphql-operations";
 
 const BASE_URL = "https://beta.pokeapi.co/graphql/v1beta/";
@@ -23,5 +26,17 @@ export const getPokemonsGeneration1 = async () => {
   return await request<GetPokemonsGeneration1Query>(
     BASE_URL,
     GetPokemonsGeneration1Document
+  );
+};
+
+export const getPokemonsDetails = async ({
+  id,
+}: GetPokemonDetailsQueryVariables) => {
+  return await request<GetPokemonDetailsQuery>(
+    BASE_URL,
+    GetPokemonDetailsDocument,
+    {
+      id: id,
+    }
   );
 };

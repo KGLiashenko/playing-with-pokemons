@@ -1,0 +1,30 @@
+query GetPokemonDetails($id: Int!) {
+  details: pokemon_v2_pokemon_aggregate(where: { id: { _eq: $id } }) {
+    nodes {
+      name
+      types: pokemon_v2_pokemontypes_aggregate(
+        where: { pokemon_id: { _eq: $id } }
+      ) {
+        nodes {
+          type: pokemon_v2_type {
+            name
+          }
+        }
+      }
+      stats: pokemon_v2_pokemonstats_aggregate(
+        where: { pokemon_id: { _eq: $id } }
+        distinct_on: base_stat
+      ) {
+        nodes {
+          stat: pokemon_v2_stat {
+            name
+            damageclass: pokemon_v2_movedamageclass {
+              name
+            }
+          }
+          base_stat
+        }
+      }
+    }
+  }
+}

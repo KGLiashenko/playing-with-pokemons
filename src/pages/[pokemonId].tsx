@@ -2,12 +2,17 @@ import Head from "next/head";
 import { Inter } from "@next/font/google";
 
 import styles from "@/styles/Home.module.css";
-import { getPokemonsGeneration1 } from "@/graphql/get-pokemons";
+import {
+  getPokemonsDetails,
+  getPokemonsGeneration1,
+} from "@/graphql/get-pokemons";
 import { useRouter } from "next/router";
+import { GetStaticProps } from "next";
+import { PokemonDetailType } from "@/models/types";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const Details: React.FC = () => {
+const Details: React.FC<PokemonDetailType> = ({ details }) => {
   const router = useRouter();
 
   return (
@@ -19,7 +24,7 @@ const Details: React.FC = () => {
       </Head>
       <div className={styles.center}>
         <h1 className={inter.className}>
-          Details of pokemon {router.query.pokemonId}
+          Details of pokemon {details[0]?.name}
         </h1>
       </div>
     </>
@@ -40,12 +45,17 @@ export const getStaticPaths = async () => {
   };
 };
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const data = getPokemonsDetails({ id: 1 });
+  const details = (await data).details.nodes;
+
+  console.log(details);
+
   return {
     props: {
-      name: "Pokemon",
+      details: details,
     },
   };
-}
+};
 
 export default Details;
