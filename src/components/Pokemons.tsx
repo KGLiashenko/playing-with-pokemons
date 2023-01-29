@@ -1,22 +1,25 @@
 import { Inter } from "@next/font/google";
 import { useQuery } from "@tanstack/react-query";
-import { Suspense, useState } from "react";
+import { Suspense, useContext } from "react";
 
 import styles from "@/styles/Home.module.css";
 import PokemonsList from "./PokemonsList";
 import { PokemonsType } from "@/models/types";
 import { getPokemons } from "@/graphql/get-pokemons";
+import { PaginationContext } from "@/store/pagination-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const Pokemons: React.FC<PokemonsType> = ({ pokemons }) => {
-  const [contentPerPage] = useState(20);
-  const [offset, setOffset] = useState(0);
+  const paginationContext = useContext(PaginationContext);
 
   const { data, isPreviousData, error } = useQuery({
-    queryKey: ["pokemons", offset],
+    queryKey: ["pokemons", paginationContext.offset],
     queryFn: () => {
-      const data = getPokemons({ limit: contentPerPage, offset: offset });
+      const data = getPokemons({
+        limit: paginationContext.limit,
+        offset: paginationContext.offset,
+      });
       return data;
     },
     keepPreviousData: true,
@@ -24,11 +27,11 @@ const Pokemons: React.FC<PokemonsType> = ({ pokemons }) => {
 
   // pagination
   const previousPage = () => {
-    setOffset((previous) => Math.max(previous - contentPerPage, 0));
+    paginationContext.previousPage();
   };
 
   const nextPage = () => {
-    if (!isPreviousData) setOffset((previous) => previous + contentPerPage);
+    if (!isPreviousData) paginationContext.nextPage();
   };
 
   const pagination = (

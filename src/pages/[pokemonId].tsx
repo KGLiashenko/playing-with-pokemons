@@ -1,10 +1,10 @@
 import Head from "next/head";
+import { GetStaticProps } from "next";
 
 import {
   getPokemonsDetails,
   getPokemonsGeneration1,
 } from "@/graphql/get-pokemons";
-import { GetStaticProps } from "next";
 import { PokemonDetailType } from "@/models/types";
 import PokemonDetails from "@/components/PokemonDetails";
 

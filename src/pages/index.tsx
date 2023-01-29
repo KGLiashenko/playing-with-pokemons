@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Pokemons from "@/components/Pokemons";
 import { PokemonsType } from "@/models/types";
 import { getPokemons } from "@/graphql/get-pokemons";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ export default function Home(props: PokemonsType) {
       </Head>
       <QueryClientProvider client={queryClient}>
         <Pokemons pokemons={props.pokemons} />
+        <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
       </QueryClientProvider>
     </>
   );
