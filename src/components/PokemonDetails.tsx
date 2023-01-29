@@ -19,6 +19,7 @@ const PokemonDetails: React.FC<PokemonDetailType> = ({ details }) => {
       <h1 className={inter.className}>{name}</h1>
       <div className={styles.card}>
         <Image
+          className={styles.logo}
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
           alt={name}
           width={100}
