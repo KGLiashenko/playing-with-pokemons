@@ -1,17 +1,16 @@
-import { Inter } from "@next/font/google";
+import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
 
 import styles from "@/styles/Home.module.css";
-import PokemonsList from "./PokemonsList";
-import { PokemonsType } from "@/models/types";
-import { getPokemons } from "@/graphql/get-pokemons";
 import { PaginationContext } from "@/store/pagination-context";
-import Loading from "./Loading";
+import { getPokemons } from "@/graphql/get-pokemons";
+import { GetPokemonsQuery } from "@/graphql/graphql-operations";
 
-const inter = Inter({ subsets: ["latin"] });
-
-const Pokemons: React.FC<PokemonsType> = ({ pokemons }) => {
+const Pagination: React.FC<{
+  onChangeData: (newData: GetPokemonsQuery | undefined) => void;
+  onIsLoading: (isLoading: boolean) => void;
+  onError: (error: string) => void;
+}> = ({ onChangeData, onIsLoading, onError }) => {
   const paginationContext = useContext(PaginationContext);
 
   const { data, isLoading, isPreviousData, error } = useQuery({
@@ -35,7 +34,13 @@ const Pokemons: React.FC<PokemonsType> = ({ pokemons }) => {
     if (!isPreviousData) paginationContext.nextPage();
   };
 
-  const pagination = (
+  onIsLoading(isLoading);
+
+  if (error instanceof Error) onError(error.message);
+
+  onChangeData(data);
+
+  return (
     <div className={styles["pagination-container"]}>
       <ul className={styles.pagination}>
         <li onClick={previousPage} className={styles["page-index"]}>
@@ -47,26 +52,6 @@ const Pokemons: React.FC<PokemonsType> = ({ pokemons }) => {
       </ul>
     </div>
   );
-
-  let content = (
-    <>
-      <PokemonsList pokemons={!data ? pokemons : data!.pokemons} />
-      {pagination}
-    </>
-  );
-
-  if (isLoading) content = <Loading />;
-
-  if (error instanceof Error) content = <p>{error.message}</p>;
-
-  return (
-    <>
-      <div className={styles.center}>
-        <h1 className={inter.className}>Pokemons</h1>
-      </div>
-      {content}
-    </>
-  );
 };
 
-export default Pokemons;
+export default Pagination;

@@ -18,7 +18,6 @@ export default function Home(props: PokemonsType) {
       </Head>
       <QueryClientProvider client={queryClient}>
         <Pokemons pokemons={props.pokemons} />
-        <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
       </QueryClientProvider>
     </>
   );
