@@ -1,8 +1,11 @@
 import Head from "next/head";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Pokemons from "@/components/Pokemons";
 import { PokemonsType } from "@/models/types";
 import { getPokemons } from "@/graphql/get-pokemons";
+
+const queryClient = new QueryClient();
 
 export default function Home(props: PokemonsType) {
   return (
@@ -12,7 +15,9 @@ export default function Home(props: PokemonsType) {
         <meta name="description" content="Playing with pokémons" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Pokemons pokemons={props.pokemons} />;
+      <QueryClientProvider client={queryClient}>
+        <Pokemons pokemons={props.pokemons} />
+      </QueryClientProvider>
     </>
   );
 }

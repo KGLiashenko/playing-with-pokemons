@@ -32,14 +32,14 @@ const PokemonDetails: React.FC<PokemonDetailType> = ({ details }) => {
           height={100}
         />
         <p className={styles.description}>
-          {`This pokémon is of type `}
+          This pokémon is of type &nbsp;
           {types.map((combatType) => (
-            <span key={combatType.id}>{` ${combatType.type.name} `}</span>
+            <span key={combatType.id}>{combatType.type.name}&nbsp;</span>
           ))}
           <span>. With a </span>
           {stats.map((stat) => (
             <span key={stat.id}>
-              {` ${stat.stat.damageclass ? stat.stat.damageclass.name : ""} `}
+              {stat.stat.damageclass ? stat.stat.damageclass.name : ""}&nbsp;
               {stat.stat.name} with base stat of <span>{stat.base_stat}</span>
             </span>
           ))}
