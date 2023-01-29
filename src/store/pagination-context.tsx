@@ -26,11 +26,11 @@ const PaginationContextProvider: React.FC<PaginationProps> = ({ children }) => {
     setOffset((previous) => Math.max(previous - contentPerPage, 0));
   };
 
-  const nextPage = (isPreviousData: boolean) => {
-    if (!isPreviousData) setOffset((previous) => previous + contentPerPage);
+  const nextPage = () => {
+    setOffset((previous) => previous + contentPerPage);
   };
 
-  const paginationContext = {
+  const paginationContext: PaginationType = {
     limit: contentPerPage,
     offset: offset,
     previousPage: previousPage,
