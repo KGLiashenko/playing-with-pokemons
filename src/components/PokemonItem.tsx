@@ -11,10 +11,8 @@ const PokemonItem: React.FC<{ name: string; image: string }> = ({
         style={{ width: 250, height: 250 }}
       >
         <Image src={image} alt={name} width={130} height={130} />
-        <div className="card-body position-relative">
-          <h2 className="card-title text-capitalize position-absolute top-50 start-50 translate-middle">
-            {name}
-          </h2>
+        <div className="card-body">
+          <h4 className="card-title text-capitalize">{name}</h4>
         </div>
       </div>
     </div>
