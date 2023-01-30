@@ -143,40 +143,6 @@
   background-clip: content-box;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-  gap: 20px;
-}
-
-.pagination .page-index {
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  background: var(--color-gray-800);
-  padding: 10px 20px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.5s ease;
-}
-
-.pagination .page-index:hover {
-  color: #fff;
-  background: #00a8ff;
-}
-
-.pagination .active {
-  color: #fff;
-  background: #00a8ff;
-}
-
-.pagination .active:hover {
-  color: #00a8ff;
-  background: #fff;
-}
-
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {

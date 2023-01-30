@@ -8,6 +8,7 @@ import { PokemonsType } from "@/models/types";
 import { getPokemons } from "@/graphql/get-pokemons";
 import { PaginationContext } from "@/store/pagination-context";
 import Loading from "./Loading";
+import Pagination from "./Pagination";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,23 +36,10 @@ const Pokemons: React.FC<PokemonsType> = ({ pokemons }) => {
     if (!isPreviousData) paginationContext.nextPage();
   };
 
-  const pagination = (
-    <div className={styles["pagination-container"]}>
-      <ul className={styles.pagination}>
-        <li onClick={previousPage} className={styles["page-index"]}>
-          Prev
-        </li>
-        <li onClick={nextPage} className={styles["page-index"]}>
-          Next
-        </li>
-      </ul>
-    </div>
-  );
-
   let content = (
     <>
       <PokemonsList pokemons={!data ? pokemons : data!.pokemons} />
-      {pagination}
+      <Pagination previousPage={previousPage} nextPage={nextPage} />
     </>
   );
 

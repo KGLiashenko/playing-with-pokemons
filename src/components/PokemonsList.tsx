@@ -1,8 +1,8 @@
-import styles from "@/styles/Home.module.css";
+import Link from "next/link";
 
+import styles from "@/styles/Home.module.css";
 import PokemonItem from "./PokemonItem";
 import { PokemonsType } from "@/models/types";
-import Link from "next/link";
 
 const PokemonsList: React.FC<PokemonsType> = ({ pokemons }) => {
   return (
