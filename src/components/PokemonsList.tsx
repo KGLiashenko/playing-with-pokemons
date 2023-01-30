@@ -1,14 +1,20 @@
+import { Inter } from "@next/font/google";
 import Link from "next/link";
 
-import styles from "@/styles/Home.module.css";
 import PokemonItem from "./PokemonItem";
 import { PokemonsType } from "@/models/types";
 
+const inter = Inter({ subsets: ["latin"] });
+
 const PokemonsList: React.FC<PokemonsType> = ({ pokemons }) => {
   return (
-    <div className={styles.grid}>
+    <div className="row row-cols-xs-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-lg-3">
       {pokemons.map((pokemon) => (
-        <Link key={pokemon.id} href={"/" + pokemon.id}>
+        <Link
+          key={pokemon.id}
+          href={"/" + pokemon.id}
+          className={`${inter.className} text-decoration-none text-reset`}
+        >
           <PokemonItem
             name={pokemon.name}
             image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}

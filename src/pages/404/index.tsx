@@ -5,17 +5,16 @@ import image from "../../assets/pokemonball.png";
 
 const NotFound: React.FC = () => {
   return (
-    <div className={styles.center}>
-      <div style={{ textAlign: "center" }}>
+    <div className="d-flex text-center">
+      <div className="position-absolute translate-middle top-50 start-50">
         <Image
-          className={styles.logo}
           src={image}
           alt="Pokémon ball"
           width={180}
           height={180}
           priority
         />
-        <h1>Where did he go?!</h1>
+        <h1 className="p-3">Where did he go?!</h1>
       </div>
     </div>
   );

@@ -2,7 +2,6 @@ import { Inter } from "@next/font/google";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 
-import styles from "@/styles/Home.module.css";
 import PokemonsList from "./PokemonsList";
 import { PokemonsType } from "@/models/types";
 import { getPokemons } from "@/graphql/get-pokemons";
@@ -39,7 +38,12 @@ const Pokemons: React.FC<PokemonsType> = ({ pokemons }) => {
   let content = (
     <>
       <PokemonsList pokemons={!data ? pokemons : data!.pokemons} />
-      <Pagination previousPage={previousPage} nextPage={nextPage} />
+      <Pagination
+        isPreviousDisabled={paginationContext.offset === 0}
+        isNextDisabled={isPreviousData}
+        previousPage={previousPage}
+        nextPage={nextPage}
+      />
     </>
   );
 
@@ -48,12 +52,10 @@ const Pokemons: React.FC<PokemonsType> = ({ pokemons }) => {
   if (error instanceof Error) content = <p>{error.message}</p>;
 
   return (
-    <>
-      <div className={styles.center}>
-        <h1 className={inter.className}>Pokemons</h1>
-      </div>
+    <div className="container justify-content-center text-center py-4">
+      <h1 className={`${inter.className} text-center p-4`}>Pokemons</h1>
       {content}
-    </>
+    </div>
   );
 };
 

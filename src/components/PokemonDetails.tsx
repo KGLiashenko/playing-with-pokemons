@@ -1,25 +1,27 @@
 import { Inter } from "@next/font/google";
 import Image from "next/image";
 
-import styles from "@/styles/Home.module.css";
 import { PokemonDetailType } from "@/models/types";
-import { capitalizeFirstLetter } from "@/utils/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const PokemonDetails: React.FC<PokemonDetailType> = ({ details }) => {
-  const name = capitalizeFirstLetter(details[0]?.name);
+  const name = details[0]?.name;
   const id = details[0].id;
 
   const types = details[0].types.nodes;
   const stats = details[0].stats.nodes;
 
   return (
-    <div className={styles.center}>
-      <h1 className={inter.className}>{name}</h1>
-      <div className={styles.card}>
+    <div
+      className="card d-flex position-absolute translate-middle top-50 start-50 shadow p-3 mb-5 bg-body rounded"
+      style={{ width: 300 }}
+    >
+      <h1 className={`${inter.className} text-capitalize  text-center`}>
+        {name}
+      </h1>
+      <div className="d-flex justify-content-between p-3">
         <Image
-          className={styles.logo}
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
           alt={name}
           width={100}
@@ -31,20 +33,25 @@ const PokemonDetails: React.FC<PokemonDetailType> = ({ details }) => {
           width={100}
           height={100}
         />
-        <p className={styles.description}>
-          This pokémon is of type &nbsp;
-          {types.map((combatType) => (
-            <span key={combatType.id}>{combatType.type.name}&nbsp;</span>
-          ))}
-          <span>. With a </span>
-          {stats.map((stat) => (
-            <span key={stat.id}>
-              {stat.stat.damageclass ? stat.stat.damageclass.name : ""}&nbsp;
-              {stat.stat.name} with base stat of <span>{stat.base_stat}</span>
-            </span>
-          ))}
-        </p>
       </div>
+      <p className="text-center">
+        This pokémon is of type &nbsp;
+        {types.map((combatType) => (
+          <span key={combatType.id}>{combatType.type.name}&nbsp;</span>
+        ))}
+        <span>. With a </span>
+        {stats.map((stat) => (
+          <span key={stat.id}>
+            {stat.stat.damageclass ? stat.stat.damageclass.name : ""}
+            &nbsp;
+            {stat.stat.name} with base stat of{" "}
+            <span>
+              {stat.base_stat}
+              &nbsp;
+            </span>
+          </span>
+        ))}
+      </p>
     </div>
   );
 };

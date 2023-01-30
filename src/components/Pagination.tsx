@@ -1,20 +1,26 @@
-import styles from "./Pagination.module.css";
-
 const Pagination: React.FC<{
+  isPreviousDisabled: boolean;
+  isNextDisabled: boolean;
   nextPage: () => void;
   previousPage: () => void;
-}> = ({ nextPage, previousPage }) => {
+}> = ({ isPreviousDisabled, isNextDisabled, nextPage, previousPage }) => {
   return (
-    <div className={styles["pagination-container"]}>
-      <ul className={styles.pagination}>
-        <li onClick={previousPage} className={styles["page-index"]}>
+    <nav aria-label="Page navigation">
+      <ul className="pagination pagination-lg justify-content-center p-3">
+        <li
+          onClick={previousPage}
+          className={`page-item page-link ${isPreviousDisabled && "disabled"}`}
+        >
           Prev
         </li>
-        <li onClick={nextPage} className={styles["page-index"]}>
+        <li
+          onClick={nextPage}
+          className={`page-item page-link ${isNextDisabled && "disabled"}`}
+        >
           Next
         </li>
       </ul>
-    </div>
+    </nav>
   );
 };
 
