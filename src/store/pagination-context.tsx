@@ -19,7 +19,7 @@ export const PaginationContext = React.createContext<PaginationType>({
 });
 
 const PaginationContextProvider: React.FC<PaginationProps> = ({ children }) => {
-  const [contentPerPage, setContentPerPage] = useState(20);
+  const [contentPerPage] = useState(20);
   const [offset, setOffset] = useState(0);
 
   const previousPage = () => {

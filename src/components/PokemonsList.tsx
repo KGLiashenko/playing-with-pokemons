@@ -12,7 +12,7 @@ const PokemonsList: React.FC<PokemonsType> = ({ pokemons }) => {
       {pokemons.map((pokemon) => (
         <Link
           key={pokemon.id}
-          href={"/" + pokemon.id}
+          href={"/collection/details/" + pokemon.id}
           className={`${inter.className} text-decoration-none text-reset`}
         >
           <PokemonItem
