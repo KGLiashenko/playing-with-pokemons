@@ -1,3 +1,16 @@
+export type PokemonPaginationType = {
+  pokemons: PokemonType[];
+  pageIndex: number;
+};
+
+export type PageIndexParamsType = {
+  pageIndex: string;
+};
+
+export type PathsType = {
+  params: PageIndexParamsType;
+}[];
+
 export type PokemonType = {
   id: number;
   name: string;
